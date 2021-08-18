@@ -1367,25 +1367,28 @@ var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
     return provider.selectedAccountIndex;
   };
 
-  _proto.setAccountIndex = /*#__PURE__*/function () {
-    var _setAccountIndex = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtimeModule.mark(function _callee6(index) {
+  _proto.setDerivationPath = /*#__PURE__*/function () {
+    var _setDerivationPath = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtimeModule.mark(function _callee6(path) {
       var address;
       return runtimeModule.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              this.provider._providers[0].selectedAccountIndex = index;
-              _context6.next = 3;
-              return this.provider._providers[0].getAccountsAsync(1, index);
+              this.baseDerivationPath = path;
 
-            case 3:
+              this.provider._providers[0].setPath(this.baseDerivationPath);
+
+              _context6.next = 4;
+              return this.provider._providers[0].getAccountsAsync(1, this.provider._providers[0].selectedAccountIndex);
+
+            case 4:
               address = _context6.sent[0];
               this.emitUpdate({
                 account: address
               });
               return _context6.abrupt("return", address);
 
-            case 6:
+            case 7:
             case "end":
               return _context6.stop();
           }
@@ -1393,7 +1396,40 @@ var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
       }, _callee6, this);
     }));
 
-    function setAccountIndex(_x2) {
+    function setDerivationPath(_x2) {
+      return _setDerivationPath.apply(this, arguments);
+    }
+
+    return setDerivationPath;
+  }();
+
+  _proto.setAccountIndex = /*#__PURE__*/function () {
+    var _setAccountIndex = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtimeModule.mark(function _callee7(index) {
+      var address;
+      return runtimeModule.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              this.provider._providers[0].selectedAccountIndex = index;
+              _context7.next = 3;
+              return this.provider._providers[0].getAccountsAsync(1, index);
+
+            case 3:
+              address = _context7.sent[0];
+              this.emitUpdate({
+                account: address
+              });
+              return _context7.abrupt("return", address);
+
+            case 6:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, this);
+    }));
+
+    function setAccountIndex(_x3) {
       return _setAccountIndex.apply(this, arguments);
     }
 

@@ -19,8 +19,8 @@ export class LedgerConnector extends AbstractConnector {
   private readonly url: string
   private readonly pollingInterval?: number
   private readonly requestTimeoutMs?: number
-  private readonly baseDerivationPath?: string
 
+  private baseDerivationPath?: string
   private provider: any
 
   constructor({
@@ -78,6 +78,14 @@ export class LedgerConnector extends AbstractConnector {
   public getAccountIndex(): number {
     const provider: LedgerSubprovider = this.provider._providers[0]
     return provider.selectedAccountIndex
+  }
+
+  public async setDerivationPath(path: string): Promise<string> {
+    this.baseDerivationPath = path
+    this.provider._providers[0].setPath(this.baseDerivationPath)
+    const address = (await this.provider._providers[0].getAccountsAsync(1, this.provider._providers[0].selectedAccountIndex))[0]
+    this.emitUpdate({account:address})
+    return address
   }
 
   public async setAccountIndex(index: number): Promise<string> {

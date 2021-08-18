@@ -14,7 +14,7 @@ export declare class LedgerConnector extends AbstractConnector {
     private readonly url;
     private readonly pollingInterval?;
     private readonly requestTimeoutMs?;
-    private readonly baseDerivationPath?;
+    private baseDerivationPath?;
     private provider;
     constructor({ chainId, url, pollingInterval, requestTimeoutMs, baseDerivationPath }: LedgerConnectorArguments);
     activate(): Promise<ConnectorUpdate>;
@@ -23,6 +23,7 @@ export declare class LedgerConnector extends AbstractConnector {
     getAccount(): Promise<null>;
     getAccounts(page?: number): Promise<string[]>;
     getAccountIndex(): number;
+    setDerivationPath(path: string): Promise<string>;
     setAccountIndex(index: number): Promise<string>;
     deactivate(): void;
 }
